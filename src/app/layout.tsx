@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Lalezar, Markazi_Text, Mirza, VT323 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const lalezar = Lalezar({ variable: "--font-lalezar", weight: "400", subsets: ["arabic", "latin"] });
@@ -24,7 +25,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: "history.scrollRestoration='manual';scrollTo(0,0)" }} />
       </head>
       {/* browser extensions (Grammarly, ColorZilla…) write attributes onto <body> before React loads */}
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        {children}
+        {/* Vercel Web Analytics: page views, served from the site's own domain (no third-party CDN) */}
+        <Analytics />
+      </body>
     </html>
   );
 }
